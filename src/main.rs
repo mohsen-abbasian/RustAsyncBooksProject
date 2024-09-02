@@ -1,3 +1,5 @@
+use async_test::timer_future;
+
 fn main() {
-    println!("Hello, world!");
+    timer_future();
 }
