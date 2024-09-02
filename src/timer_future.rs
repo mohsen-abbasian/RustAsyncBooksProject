@@ -18,7 +18,7 @@ pub struct SharedState {
 
     /// The waker for the task that `TimeFuture` is running on.
     /// The thread can use this after setting `completed = true` to tell
-    /// `TimeFuture`'s task to wake up, see that `completed = true`, and 
+    /// `TimeFuture`'s task to wake up, see that `completed = true`, and
     /// move forward.
     waker: Option<Waker>,
 }
