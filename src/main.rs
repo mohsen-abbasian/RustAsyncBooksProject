@@ -1,12 +1,19 @@
-use std::net::TcpListener;
+use async_std::net::TcpListener;
+use futures::stream::StreamExt;
 use async_test::handle_connection;
+use async_std::task::spawn;
 
 #[async_std::main]
 async fn main() {
-    let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
-    for stream in listener.incoming() {
-        let stream = stream.unwrap();
-        handle_connection(stream).await;
-    }
+    let listener = TcpListener::bind("127.0.0.1:7878").await.unwrap();
+    listener.incoming().for_each_concurrent(None, |tcpstream| async move {
+        let tcpstream = tcpstream.unwrap();
+        handle_connection(tcpstream).await;
+    }).await;
+
+    // listener.incoming().for_each_concurrent(None, |stream| async move {
+    //     let stream = stream.unwrap();
+    //     spawn(handle_connection(stream));
+    // }).await;
 }
 
