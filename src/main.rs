@@ -1,7 +1,7 @@
 use async_std::net::TcpListener;
-use futures::stream::StreamExt;
-use async_test::handle_connection;
 use async_std::task::spawn;
+use async_test::handle_connection;
+use futures::stream::StreamExt;
 
 #[async_std::main]
 async fn main() {
@@ -14,9 +14,11 @@ async fn main() {
     // }).await;
 
     // use both concorrency and parallelism
-    listener.incoming().for_each_concurrent(None, |stream| async move {
-        let stream = stream.unwrap();
-        spawn(handle_connection(stream));
-    }).await;
+    listener
+        .incoming()
+        .for_each_concurrent(None, |stream| async move {
+            let stream = stream.unwrap();
+            spawn(handle_connection(stream));
+        })
+        .await;
 }
-

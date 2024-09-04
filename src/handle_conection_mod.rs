@@ -1,7 +1,7 @@
+use async_std::io::{Read, Write};
+use async_std::prelude::*;
 use std::fs;
 use std::time::Duration;
-use async_std::prelude::*;
-use async_std::io::{Read, Write};
 // use async_std::net::TcpStream;
 use async_std::task;
 
@@ -18,7 +18,10 @@ pub async fn handle_connection(mut stream: impl Read + Write + Unpin) {
         task::sleep(Duration::from_secs(5)).await;
         ("HTTP/1.1 200 OK\r\n\r\n", "./src/html_codes/hello.html")
     } else {
-        ("HTTP/1.1 404 NOT FOUND\r\n\r\n", "./src/html_codes/404.html")
+        (
+            "HTTP/1.1 404 NOT FOUND\r\n\r\n",
+            "./src/html_codes/404.html",
+        )
     };
 
     let contents = fs::read_to_string(filename).unwrap();
