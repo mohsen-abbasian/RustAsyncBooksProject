@@ -1,10 +1,11 @@
 use std::fs;
 use std::time::Duration;
 use async_std::prelude::*;
-use async_std::net::TcpStream;
+use async_std::io::{Read, Write};
+// use async_std::net::TcpStream;
 use async_std::task;
 
-pub async fn handle_connection(mut stream: TcpStream) {
+pub async fn handle_connection(mut stream: impl Read + Write + Unpin) {
     let mut buffer = [0; 1024];
     stream.read(&mut buffer).await.unwrap();
 

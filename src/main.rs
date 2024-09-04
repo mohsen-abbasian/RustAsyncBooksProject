@@ -6,14 +6,17 @@ use async_std::task::spawn;
 #[async_std::main]
 async fn main() {
     let listener = TcpListener::bind("127.0.0.1:7878").await.unwrap();
-    listener.incoming().for_each_concurrent(None, |tcpstream| async move {
-        let tcpstream = tcpstream.unwrap();
-        handle_connection(tcpstream).await;
-    }).await;
 
-    // listener.incoming().for_each_concurrent(None, |stream| async move {
-    //     let stream = stream.unwrap();
-    //     spawn(handle_connection(stream));
+    // Use concorrency
+    // listener.incoming().for_each_concurrent(None, |tcpstream| async move {
+    //     let tcpstream = tcpstream.unwrap();
+    //     handle_connection(tcpstream).await;
     // }).await;
+
+    // use both concorrency and parallelism
+    listener.incoming().for_each_concurrent(None, |stream| async move {
+        let stream = stream.unwrap();
+        spawn(handle_connection(stream));
+    }).await;
 }
 
