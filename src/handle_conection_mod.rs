@@ -1,10 +1,8 @@
 use async_std::io::{Read, Write};
 use async_std::prelude::*;
+use async_std::task;
 use std::fs;
 use std::time::Duration;
-// use async_std::net::TcpStream;
-use async_std::task;
-use crate::MockTcpStream;
 
 pub async fn handle_connection(mut stream: impl Read + Write + Unpin) {
     let mut buffer = [0; 1024];
@@ -34,6 +32,7 @@ pub async fn handle_connection(mut stream: impl Read + Write + Unpin) {
 
 #[async_std::test]
 async fn test_handle_connection() {
+    use crate::MockTcpStream;
     let input_bytes = b"GET / HTTP/1.1\r\n";
     let mut contents = vec![0u8; 1024];
     contents[..input_bytes.len()].clone_from_slice(input_bytes);
