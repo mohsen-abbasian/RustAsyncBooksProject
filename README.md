@@ -9,11 +9,11 @@ The final project of async-book is very simple async implementation of the singl
 
 - **src folder**
     - **html_codes foler** _(Contains simple html codes to use as server's response)_
-        - **hello.html** _(to use as success response)_
-        - **404.html** _(to use as unsuccess response)_
-    - **executor_util** _(a module contains a sample of a very simple future executor)_
-    - **rimer_future** _(a module contains a sample of a very simple time future)_
-    - **handle_connection_mod** _(a module contains a simple async handle_connection function (a simple listener for a server) wich use in final project example and it's unit test)_
-    - **mock_tcp_stream** _(a simple structure which implements Read, Write, and Unpin traits to use in unit test)_
-    - **main** _(an async main function)_
-    - **lib** _(a normal lib file to handle modules)_
+        - **hello.html** _(To use as success response)_
+        - **404.html** _(To use as unsuccess response)_
+    - **executor_util** _(A module contains a sample of a very simple future executor)_
+    - **rimer_future** _(A module contains a sample of a very simple time future)_
+    - **handle_connection_mod** _(A module contains a simple async handle_connection function (a simple listener for a server) wich use in final project example and it's unit test)_
+    - **mock_tcp_stream** _(A simple structure which implements Read, Write, and Unpin traits to use in unit test)_
+    - **main** _(An async main function)_
+    - **lib** _(A normal lib file to handle modules)_
