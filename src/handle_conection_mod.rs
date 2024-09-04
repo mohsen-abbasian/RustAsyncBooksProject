@@ -1,12 +1,12 @@
 use std::fs;
 use std::time::Duration;
-use std::io::prelude::*;
-use std::net::TcpStream;
+use async_std::prelude::*;
+use async_std::net::TcpStream;
 use async_std::task;
 
 pub async fn handle_connection(mut stream: TcpStream) {
     let mut buffer = [0; 1024];
-    stream.read(&mut buffer).unwrap();
+    stream.read(&mut buffer).await.unwrap();
 
     let get = b"GET / HTTP/1.1\r\n";
     let sleep = b"GET /sleep HTTP/1.1\r\n";
@@ -22,7 +22,7 @@ pub async fn handle_connection(mut stream: TcpStream) {
 
     let contents = fs::read_to_string(filename).unwrap();
     let response = format!("{status_line}{contents}");
-    
-    stream.write_all(response.as_bytes()).unwrap();
-    stream.flush().unwrap();
+
+    stream.write_all(response.as_bytes()).await.unwrap();
+    stream.flush().await.unwrap();
 }
