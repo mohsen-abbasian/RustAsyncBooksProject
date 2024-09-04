@@ -7,8 +7,8 @@ use std::pin::Pin;
 use async_std::io::{Read, Write};
 
 pub struct MockTcpStream {
-    read_data: Vec<u8>,
-    write_data: Vec<u8>,
+    pub read_data: Vec<u8>,
+    pub write_data: Vec<u8>,
 }
 
 impl Read for MockTcpStream {
