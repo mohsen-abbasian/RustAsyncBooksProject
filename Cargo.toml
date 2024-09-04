@@ -5,3 +5,7 @@ edition = "2021"
 
 [dependencies]
 futures = "0.3.30"
+
+[dependencies.async-std]
+version = "1.12.0"
+features = ["attributes"]
